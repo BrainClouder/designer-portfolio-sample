@@ -1,11 +1,16 @@
 This project was bootstrapped with [Create React App] using TypeScript template (https://github.com/facebook/create-react-app).
 
+
+This project is a sample portfolio template made using React + TypeScript using functional components only. Redux is being used as the main state manager, it storages the routes and the work display array (the work array could be fetched using thunk and stored in redux) and also manages the color mode (night/dark).
+
+A live sample can be found here: https://sample-portfolio-brainclouder.herokuapp.com/home
+
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### `npm run startDev`
-Runs the app in development mode.
+Runs the app in development mode. It also compiles the css with Autoprefixer during the initialization.
 Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
 The page will reload if you make edits.<br />
