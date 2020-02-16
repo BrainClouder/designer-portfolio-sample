@@ -27,7 +27,7 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
   const aboutStyle = sT ? 'text-gray-200 bg-black border-black hover:bg-orange-700 hover:border-orange-600' : 'text-gray-700 border-white bg-white hover:bg-indigo-700 hover:border-indigo-600';
   const randomLink = aB ? `https://randomuser.me/api/portraits/${randomGen ? 'men' : 'women'}/${Math.floor(Math.random() * 68 + 1)}.jpg` : '';
   return (<>
-    <div className={`subpixel-antialiased text-center p-4 ${blurAbout}`}>
+    <div className={`w-max-screen subpixel-antialiased text-center p-4 ${blurAbout}`}>
       <div className={`m-2 p-2 flex flex-row justify-around ${blurSelection}`}>
         <div>
           <button onClick={aboutToggle} className={`${aboutStyle}
@@ -71,7 +71,7 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
     <div className={`${sT ? 'bg-dark' : 'bg-light'}`}></div>
     <div onClick={aboutToggle} className={`fixed top-0 left-0 w-screen bg-black opacity-50 h-screen ${aB ? 'visible' : 'invisible'}`}></div>
     <div className={`absolute top-0 left-0 w-screen ${aB ? 'visible' : 'invisible'}`}>
-      <div className={`relative w-full flex flex-row justify-center m-4`}>
+      <div className={`relative w-full w-max-screen flex flex-row justify-center m-4`}>
         <div onClick={aboutToggle} className={`w-1/4`}></div>
         <div className={`mx-auto m-4 p-2 rounded-lg text-center w-mylg lg:w-mydisplay sm:w-mymd ${sT ? 'bg-gray-900 text-gray-200' : 'bg-gray-200'}`}>
           <div className={`p-2 m-2`}>

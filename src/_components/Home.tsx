@@ -27,9 +27,9 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                 {wO.map((e: any, i: number) => {
                     const onSelect = (sE === i ? `border-2 border-gray-800 scale-100 shadow ${bgTog}` : 'hover:scale-100');
                     return (<div key={e[0]}
-                        className={`w-mysm lg:w-mymd transform transition scale-95 duration-500 rounded-lg 
-                        p-2 cursor-pointer m-1 ${onSelect}`}>
-                        <img className="mx-auto w-mysm lg:w-mymd shadow rounded-sm" src={e[0]} onClick={() => {
+                        className={`w-mymd transform transition scale-95 duration-500 rounded-lg 
+                        md:p-2 cursor-pointer m-1 ${onSelect}`}>
+                        <img className="shadow rounded-sm" src={e[0]} onClick={() => {
                             window.scrollTo(0,0);
                             select(i);
                             }} />
