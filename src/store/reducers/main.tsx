@@ -1,9 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, AnyAction } from 'redux';
 import { ACTIONS } from '../actions/main';
+import { TmainState, TACTIONS } from '../../types';
 
 //works is a data array, it can be fetched from some server by redux-thunk 
 
-const initialState = {
+const initialState: TmainState = {
     routes: ['/home'],
     works: [['https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5106cda8-4842-43ca-a632-6b7c46b6b808/d4rnmov-e5ebdd52-2edf-4c0d-a396-c580f5183920.png/v1/fill/w_894,h_894,q_70,strp/dripping_by_pitel_d4rnmov-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTIwMCIsInBhdGgiOiJcL2ZcLzUxMDZjZGE4LTQ4NDItNDNjYS1hNjMyLTZiN2M0NmI2YjgwOFwvZDRybm1vdi1lNWViZGQ1Mi0yZWRmLTRjMGQtYTM5Ni1jNTgwZjUxODM5MjAucG5nIiwid2lkdGgiOiI8PTEyMDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.otpnY80z6kw93vZZInW-Gzq97MFsLXuKuEf1F0WdNdY',
         ['"Dripping" by Pitel is licensed under CC BY 3.0',
@@ -67,7 +68,7 @@ const initialState = {
     aboutState: false,
 };
 
-const main = (state = initialState, action: any) => {
+const main = (state: TmainState = initialState, action: AnyAction) => {
     switch (action.type) {
         case ACTIONS.selectArt:
             return {

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
 import { Switch, Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import Home from './_components/Home';
 import { ACTIONS } from './store/actions/main';
-import gitDark from './imgs/png/gitHubDark.png';
-import gitLight from './imgs/png/gitHubLight.png';
-import soLogo from './imgs/svg/so-icon.svg';
-import lnLogo from './imgs/png/lnIcon.png';
+import darkLogo from './imgs/png/nightLogo.png';
+import lightLogo from './imgs/png/dayLogo.png';
+import { TmainState, TACTIONS } from './types';
+import FooterCred from './_components/FooterCred';
 
 interface IApp {
   sT: boolean;
@@ -22,16 +22,20 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
   const randomGen = Math.random() < 0.5;
   const profession = Math.random() > 0.5 ? (Math.random() > 0.5 ? (Math.random() > 0.5 ? (Math.random() > 0.5 ? 'UX/UI Designer' : 'Photographer') : 'Art Director') : 'Civil Architect') : 'Designer';
   const highLight = sT ? 'text-orange-400' : 'text-indigo-600';
+  const blurAbout = aB ? 'blur-effect' : '';
+  const blurSelection = sE ? 'blur-effect' : '';
+  const aboutStyle = sT ? 'text-gray-200 bg-black border-black hover:bg-orange-700 hover:border-orange-600' : 'text-gray-700 border-white bg-white hover:bg-indigo-700 hover:border-indigo-600';
+  const randomLink = aB ? `https://randomuser.me/api/portraits/${randomGen ? 'men' : 'women'}/${Math.floor(Math.random() * 68 + 1)}.jpg` : '';
   return (<>
-    <div className={`subpixel-antialiased text-center ${aB ? 'blur-effect' : ''}`}>
-      <div className={`m-2 p-2 flex flex-row justify-around ${sE ? 'blur-effect' : ''}`}>
+    <div className={`subpixel-antialiased text-center p-4 ${blurAbout}`}>
+      <div className={`m-2 p-2 flex flex-row justify-around ${blurSelection}`}>
         <div>
-          <button onClick={aboutToggle} className={`${sT ? 'text-gray-500 border-gray-800 hover:bg-orange-700' : 'text-gray-700 border-gray-400 hover:bg-indigo-700'} 
+          <button onClick={aboutToggle} className={`${aboutStyle}
             hover:text-white border-2 rounded-full px-4 transform transition duration-200 py-1 
             font-mono text-lg font-bold`}>About</button>
         </div>
         <div>
-          <p className={`${highLight} ${sT ? 'logo-effect-dark' : 'logo-effect-light'} font-bold logo-effect`}>can_be_your_logo.com</p>
+          <img src={sT ? darkLogo : lightLogo } />
         </div>
         <label className="label">
           <div className="toggle">
@@ -46,13 +50,11 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
         </label>
       </div>
       <div>
-
-      </div>
-      <div>
         <Switch>
           {rO.map((e: string, i: number) => <Route strict key={e} path={e} component={() => {
+            const textDefaultStyle = sT ? 'text-gray-300' : 'text-gray-800';
             return (
-              <div className={`${sT ? 'text-gray-300' : 'text-gray-700'}`}>
+              <div className={`${textDefaultStyle}`}>
                 {compMap[i]}
               </div>)
           }
@@ -60,27 +62,11 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
           <Route path={'/'} component={() => <Redirect to={rO[0]} />} />
         </Switch>
       </div>
-    </div>
+      <div className="h-16">
 
-    <div className={`fixed bottom-0 left-0 w-screen`}>
-      <div className={`relative mx-auto w-screen text-left`}>
-        <div className={`${sT ? 'bg-gray-900' : 'bg-gray-200 shadow-inner'} w-auto inline-block px-2 py-2 m-4 rounded-md`}>
-          <div className={`flex flex-col`}>
-            <div className="p-2 transition duration-200 transform hover:scale-125">
-              <a href={'https://github.com/BrainClouder'}><img src={sT ? gitLight : gitDark} /></a>
-            </div>
-            <div className="p-2 transition duration-200 transform hover:scale-125">
-              <a href={'https://stackoverflow.com/users/11518214/celso-wellington'}><img src={soLogo} width={32}/></a>
-            </div>
-            <div className="p-2 transition duration-200 transform hover:scale-125">
-              <a href={'https://www.linkedin.com/in/contrateme/'}><img src={lnLogo} width={32}/></a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-
-
+    <FooterCred />
 
     <div className={`${sT ? 'bg-dark' : 'bg-light'}`}></div>
     <div onClick={aboutToggle} className={`fixed top-0 left-0 w-screen bg-black opacity-50 h-screen ${aB ? 'visible' : 'invisible'}`}></div>
@@ -89,7 +75,7 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
         <div onClick={aboutToggle} className={`w-1/4`}></div>
         <div className={`mx-auto m-4 p-2 rounded-lg text-center w-mylg lg:w-mydisplay sm:w-mymd ${sT ? 'bg-gray-900 text-gray-200' : 'bg-gray-200'}`}>
           <div className={`p-2 m-2`}>
-            <img className={`rounded-full mx-auto p-2 shadow`} src={`https://randomuser.me/api/portraits/${randomGen ? 'men' : 'women'}/${Math.floor(Math.random() * 68 + 1)}.jpg`}></img>
+            <img className={`rounded-full mx-auto p-2 shadow transform hover:scale-110 transition duration-200`} src={randomLink}></img>
             <p>{randomGen ? 'Mendonza Schrute' : 'Rachel van der Hopkins'}</p>
             <p className={`font-bold ${highLight}`}>{profession}</p>
             <p>something@email.com</p>
@@ -100,14 +86,13 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
           </div>
         </div>
         <div onClick={aboutToggle} className={`w-1/4`}></div>
-
       </div>
     </div>
   </>
   );
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: TmainState) => {
   const t = state;
   return {
     sT: t.styleToggle,
@@ -117,7 +102,7 @@ const mapStateToProps = (state: any) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch<TACTIONS>) => {
   return {
     styleToggle: () => dispatch({ type: ACTIONS.nightToggle }),
     aboutToggle: () => dispatch({ type: ACTIONS.toggleAbout })

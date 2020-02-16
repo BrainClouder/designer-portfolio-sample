@@ -18,10 +18,12 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
     const workName = (isSelected ? `"${[...selProd[1][0].split('"')][1]}"` : '');
     const authorName = (isSelected ? [...[...selProd[1][0].split('by')][1].split('is licensed')][0] : '');
     const license = (isSelected ? [...selProd[1][0].split('under ')][1] : '');
-    const linkStyle = `${sT ? 'text-orange-500 hover:text-orange-700' : 'text-indigo-500 hover:text-indigo-300'} font-bold cursor-pointer`;
+    const linkStyle = `${sT ? 'text-orange-500 hover:text-orange-700' : 'text-indigo-500 hover:text-indigo-300'} font-bold`;
+    const blurSelected = isSelected ? 'blur-effect' : '';
+    // const titleColor = sT ? 'text-orange-600' : 'text-indigo-500';
     return (<>
         <div>
-            <div className={`flex flex-wrap justify-center ${isSelected ? 'blur-effect':''}`}>
+            <div className={`flex flex-wrap justify-center ${blurSelected}`}>
                 {wO.map((e: any, i: number) => {
                     const onSelect = (sE === i ? `border-2 border-gray-800 scale-100 shadow ${bgTog}` : 'hover:scale-100');
                     return (<div key={e[0]}
@@ -32,8 +34,7 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                 })}
             </div>
         </div>
-        <div onClick={() => select(-1)} className={`bg-black fixed top-0 left-0 h-screen w-screen opacity-50 
-        ${visibilityToggle}`}>
+        <div onClick={() => select(-1)} className={`fixed top-0 left-0 h-screen w-screen ${visibilityToggle}`}>
 
         </div>
         <div className={`${visibilityToggle} absolute top-0 left-0`}>
@@ -44,8 +45,7 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                         <div>
                             <div className={`relative md:w-mydisplay w-mylg flex flex-col justify-center`}>
                                 <img className={`w-full cursor-pointer shadow-inset rounded-t-lg`} src={isSelected ? selProd[0] : ''} onClick={() => select(-1)} />
-
-                                <div className={`${sT ? 'bg-gray-900' : 'bg-gray-200'} shadow text-md p-2 rounded-b-lg`}>
+                                <div className={`${sT ? 'bg-gray-900' : 'bg-gray-400'} shadow text-md p-2 rounded-b-lg`}>
                                     <p>
                                         <a href={isSelected ? selProd[1][1] : ''} className={linkStyle}>
                                             {workName}
@@ -55,13 +55,13 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                                             {license}
                                         </a>
                                     </p>
-                                    <p className={`p-1 m-1 font-bold text-3xl ${sT ? 'text-orange-600' : 'text-indigo-500'}`}>
+                                    <p className={`p-1 m-1 font-bold text-3xl ${linkStyle}`}>
                                         Work Title Here</p>
                                     <p className={`p-1 m-1`}>
                                         I won't do lorem ipsum in this one. Instead, I'll type anything that is coming to my head right now just to fill up
                                         this text area so I can see if it fits right and feels right, so it can be used to input some text about some artwork
-                                        Inside here will be a <a className={linkStyle} href="#">link</a> that will lead you to the top of the page, other <a className={linkStyle} href={""}>link</a> that
-                                        would refresh the page and a <a className={linkStyle} href={""}>link</a> that may take you out of here.
+                                        Inside here will be a <a className={`${linkStyle} cursor-pointer`} href="#">link</a> that will lead you to the top of the page, other <a className={`${linkStyle} cursor-pointer`} href={""}>link</a> that
+                                        would refresh the page and a <a className={`${linkStyle} cursor-pointer`} href={""}>link</a> that may take you out of here.
                                     </p>
                                 </div>
                             </div>
