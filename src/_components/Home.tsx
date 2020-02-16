@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ACTIONS } from '../store/actions/main';
-import { NavLink as Nav } from 'react-router-dom';
 
 interface IHome {
     sT: boolean;
     wO: string[];
     sE: number;
     select: (e: number) => void;
+    clear: () => void;
 }
 
-const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
+const Home: React.FC<IHome> = ({ sT, wO, sE, select, clear }) => {
     const bgTog = (sT ? 'bg-gray-900 text-gray-300' : 'bg-gray-400 text-gray-700');
     const visibilityToggle = (sE !== -1 ? 'visible' : 'invisible');
     const selProd = wO[sE];
@@ -20,7 +20,6 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
     const license = (isSelected ? [...selProd[1][0].split('under ')][1] : '');
     const linkStyle = `${sT ? 'text-orange-500 hover:text-orange-700' : 'text-indigo-500 hover:text-indigo-300'} font-bold`;
     const blurSelected = isSelected ? 'blur-effect' : '';
-    // const titleColor = sT ? 'text-orange-600' : 'text-indigo-500';
     return (<>
         <div>
             <div className={`flex flex-wrap justify-center ${blurSelected}`}>
@@ -32,22 +31,22 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                         <img className="shadow rounded-sm" src={e[0]} onClick={() => {
                             window.scrollTo(0,0);
                             select(i);
-                            }} />
+                        }} />
                     </div>)
                 })}
             </div>
         </div>
-        <div onClick={() => select(-1)} className={`fixed top-0 left-0 h-screen w-screen ${visibilityToggle}`}>
+        <div onClick={clear} className={`fixed top-0 left-0 h-screen w-screen ${visibilityToggle}`}>
 
         </div>
         <div className={`${visibilityToggle} absolute top-0 left-0`}>
             <div className={`relative w-screen`}>
                 <div className={`relative w-screen flex flex-row justify-center item-baseline`}>
-                    <div className={'w-1/4'} onClick={() => select(-1)}></div>
+                    <div className={'w-1/4'} onClick={clear}></div>
                     <div className={`p-4`}>
                         <div>
                             <div className={`relative md:w-mydisplay w-mylg flex flex-col justify-center`}>
-                                <img className={`w-full cursor-pointer shadow-inset rounded-t-lg`} src={isSelected ? selProd[0] : ''} onClick={() => select(-1)} />
+                                <img className={`w-full cursor-pointer shadow-inset rounded-t-lg`} src={isSelected ? selProd[0] : ''} onClick={clear} />
                                 <div className={`${sT ? 'bg-gray-900' : 'bg-gray-400'} shadow text-md p-2 rounded-b-lg`}>
                                     <p>
                                         <a href={isSelected ? selProd[1][1] : ''} className={linkStyle}>
@@ -70,7 +69,7 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                             </div>
                         </div>
                     </div>
-                    <div className={'w-1/4'} onClick={() => select(-1)}></div>
+                    <div className={'w-1/4'} onClick={clear}></div>
                 </div>
             </div>
         </div>
@@ -87,7 +86,8 @@ const mapStateToProps = (state: any) => {
 }
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        select: (e: number) => dispatch({ type: ACTIONS.selectArt, payload: e })
+        select: (e: number) => dispatch({ type: ACTIONS.selectArt, payload: e }),
+        clear: () => dispatch({ type: ACTIONS.clearView }),
     }
 }
 

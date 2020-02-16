@@ -1,20 +1,21 @@
-import { nightToggle, selectArt, toggleAbout } from "../store/actions/main"
+import { nightToggle, selectArt, toggleAbout, clearView } from "../store/actions/main"
 
 export type TmainState = {
     routes: string[],
     works: [string, string[]][],
     selectedArt: number,
     styleToggle: boolean,
-    aboutState: boolean
+    aboutState: boolean,
 }
 
-type selectedA = typeof selectArt;
-type nightT = {type: typeof nightToggle};
-type toggleA = {type: typeof toggleAbout};
+type TselectedA = {type: typeof selectArt, payload: number};
+type TnightT = {type: typeof nightToggle};
+type TtoggleA = {type: typeof toggleAbout};
+type Tview = {type: typeof clearView};
 
-type IselectedArt = {
-    type: selectedA
-    payload: number
-}
 
-export type TACTIONS =  toggleA | IselectedArt | nightT;
+
+
+
+
+export type TACTIONS =  TtoggleA | TselectedA | TnightT | Tview;

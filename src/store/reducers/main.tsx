@@ -75,6 +75,11 @@ const main = (state: TmainState = initialState, action: AnyAction) => {
                 ...state,
                 selectedArt: action.payload
             }
+        case ACTIONS.clearView:
+            return {
+                ...state,
+                selectedArt: -1,
+            }
         case ACTIONS.nightToggle:
             return {
                 ...state,
