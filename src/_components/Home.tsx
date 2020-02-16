@@ -29,7 +29,10 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                     return (<div key={e[0]}
                         className={`w-mysm lg:w-mymd transform transition scale-95 duration-500 rounded-lg 
                         p-2 cursor-pointer m-1 ${onSelect}`}>
-                        <img className="mx-auto w-mysm lg:w-mymd shadow rounded-sm" src={e[0]} onClick={() => select(i)} />
+                        <img className="mx-auto w-mysm lg:w-mymd shadow rounded-sm" src={e[0]} onClick={() => {
+                            window.scrollTo(0,0);
+                            select(i);
+                            }} />
                     </div>)
                 })}
             </div>
