@@ -24,19 +24,10 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
             <div className={`flex flex-wrap justify-center ${isSelected ? 'blur-effect':''}`}>
                 {wO.map((e: any, i: number) => {
                     const onSelect = (sE === i ? `border-2 border-gray-800 scale-100 shadow ${bgTog}` : 'hover:scale-100');
-                    const isVisible = (sE === i ? 'visible text-entering' : 'absolute invisible');
-                    const btnSt = sT ? 'text-white hover:bg-white hover:text-gray-900' : 'text-gray-900 hover:bg-gray-900 hover:text-gray-300';
                     return (<div key={e[0]}
                         className={`w-mysm lg:w-mymd transform transition scale-95 duration-500 rounded-lg 
                         p-2 cursor-pointer m-1 ${onSelect}`}>
                         <img className="mx-auto w-mysm lg:w-mymd shadow rounded-sm" src={e[0]} onClick={() => select(i)} />
-                        {/* <div className={`${bgTog} ${isVisible}`}>
-                            <div className={`text-sm p-2 w-auto inline-block`} >
-                                {e[1][0]}
-                            </div>
-                            <Nav to={`/work/${i}`} className={`transition duration-500 ${btnSt} 
-                            font-bold px-2 py-1 transform rounded-full hover:scale-110`}>Learn more</Nav>
-                        </div> */}
                     </div>)
                 })}
             </div>

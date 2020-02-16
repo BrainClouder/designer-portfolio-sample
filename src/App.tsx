@@ -63,8 +63,8 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
     </div>
 
     <div className={`fixed bottom-0 left-0 w-screen`}>
-      <div className={`relative mx-auto w-screen text-left p-2`}>
-        <div className={`${sT ? 'bg-gray-900' : 'bg-gray-200 shadow-inner'} w-auto inline-block px-4 py-2 rounded-md`}>
+      <div className={`relative mx-auto w-screen text-left`}>
+        <div className={`${sT ? 'bg-gray-900' : 'bg-gray-200 shadow-inner'} w-auto inline-block px-2 py-2 m-4 rounded-md`}>
           <div className={`flex flex-col`}>
             <div className="p-2 transition duration-200 transform hover:scale-125">
               <a href={'https://github.com/BrainClouder'}><img src={sT ? gitLight : gitDark} /></a>
@@ -88,8 +88,8 @@ const App: React.FC<IApp> = ({ aB, sE, sT, rO, styleToggle, aboutToggle }) => {
       <div className={`relative w-full flex flex-row justify-center m-4`}>
         <div onClick={aboutToggle} className={`w-1/4`}></div>
         <div className={`mx-auto m-4 p-2 rounded-lg text-center w-mylg lg:w-mydisplay sm:w-mymd ${sT ? 'bg-gray-900 text-gray-200' : 'bg-gray-200'}`}>
-          <div className={`p-2`}>
-            <img className={`rounded-full mx-auto`} src={`https://randomuser.me/api/portraits/${randomGen ? 'men' : 'women'}/${Math.floor(Math.random() * 68 + 1)}.jpg`}></img>
+          <div className={`p-2 m-2`}>
+            <img className={`rounded-full mx-auto p-2 shadow`} src={`https://randomuser.me/api/portraits/${randomGen ? 'men' : 'women'}/${Math.floor(Math.random() * 68 + 1)}.jpg`}></img>
             <p>{randomGen ? 'Mendonza Schrute' : 'Rachel van der Hopkins'}</p>
             <p className={`font-bold ${highLight}`}>{profession}</p>
             <p>something@email.com</p>
