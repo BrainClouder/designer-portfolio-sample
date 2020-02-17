@@ -7,12 +7,16 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store/reducers/main';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ParallaxProvider } from 'react-scroll-parallax';
+
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router>
-			<App />
-		</Router>
+		<ParallaxProvider>
+			<Router>
+				<App />
+			</Router>
+		</ParallaxProvider>
 	</Provider>,
 	document.getElementById('root'),
 );
