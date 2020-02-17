@@ -35,6 +35,7 @@ const App: React.FC<IApp> = ({ aB, sT, rO }) => {
       <div className="h-16">
       </div>
     </div>
+    <div className={`${sT ? 'bg-dark' : 'bg-light'}`}></div>
     <AboutModal />
     <FooterCred />
   </>

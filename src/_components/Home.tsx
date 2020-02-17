@@ -12,7 +12,7 @@ interface IHome {
 
 const Home: React.FC<IHome> = ({ sT, wO, sE, select, clear }) => {
     const bgTog = (sT ? 'bg-gray-900 text-gray-300' : 'bg-gray-400 text-gray-700');
-    const visibilityToggle = (sE !== -1 ? 'visible' : 'invisible');
+    const visibilityToggle = (sE !== -1 ? 'visible modal-animate' : 'invisible');
     const selProd = wO[sE];
     const isSelected = sE !== -1;
     const workName = (isSelected ? `"${[...selProd[1][0].split('"')][1]}"` : '');

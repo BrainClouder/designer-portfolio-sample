@@ -50,6 +50,15 @@
     // background-color: #222222
     transform: skewY(-65deg)
 
+@keyframes enter-modal
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+
+.modal-animate
+    animation: enter-modal 200ms ease-in-out
+
 
 body
     height: 100%

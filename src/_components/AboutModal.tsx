@@ -16,11 +16,11 @@ const AboutModal: React.FC<IAbout> = ({ sT, aB, aboutToggle }) => {
     const profession = Math.random() > 0.5 ? (Math.random() > 0.5 ? (Math.random() > 0.5 ? (Math.random() > 0.5 ? 'UX/UI Designer' : 'Photographer') : 'Art Director') : 'Civil Architect') : 'Designer';
     const highLight: string = sT ? 'text-orange-400' : 'text-indigo-600';
     const randomLink: string = aB ? `https://randomuser.me/api/portraits/${randomGen ? 'men' : 'women'}/${Math.floor(Math.random() * 68 + 1)}.jpg` : '';
+    const aboutVisible = aB ? 'visible modal-animate' : 'invisible';
     return (
-        <>
-            <div className={`${sT ? 'bg-dark' : 'bg-light'}`}></div>
-            <div onClick={aboutToggle} className={`fixed top-0 left-0 w-screen bg-black opacity-50 h-screen ${aB ? 'visible' : 'invisible'}`}></div>
-            <div className={`absolute top-0 left-0 w-screen ${aB ? 'visible' : 'invisible'}`}>
+        <>            
+            <div onClick={aboutToggle} className={`fixed top-0 left-0 w-screen h-screen ${aboutVisible}`}></div>
+            <div className={`absolute top-0 left-0 w-screen ${aboutVisible}`}>
                 <div className={`relative w-full w-max-screen flex flex-row justify-center m-4`}>
                     <div onClick={aboutToggle} className={`w-1/4`}></div>
                     <div className={`mx-auto m-4 p-2 rounded-lg text-center w-mylg lg:w-mydisplay sm:w-mymd ${sT ? 'bg-gray-900 text-gray-200' : 'bg-gray-200'}`}>
