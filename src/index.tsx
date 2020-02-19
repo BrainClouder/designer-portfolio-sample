@@ -6,17 +6,14 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store/reducers/main';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ParallaxProvider } from 'react-scroll-parallax';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 ReactDOM.render(
-	<Provider store={store}>
-		<ParallaxProvider>
+	<Provider store={store}>		
 			<Router>
-				<App />
+				<Route path="/" component={App} />
 			</Router>
-		</ParallaxProvider>
 	</Provider>,
 	document.getElementById('root'),
 );

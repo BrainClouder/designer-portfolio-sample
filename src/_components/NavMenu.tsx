@@ -6,39 +6,38 @@ import { NavLink as Nav } from 'react-router-dom';
 
 interface INav {
     sT: boolean;
-    aB: boolean;
-    sE: boolean;
     rO: string[];
     rN: string[];
     styleToggle: () => void;
-    aboutToggle: () => void;
+    aboutToggle: (e: boolean) => void;
 
 }
 
-const NavMenu: React.FC<INav> = ({ sT, aB, sE, styleToggle, aboutToggle, rN, rO }) => {
-    const blurSelection = sE ? 'blur-effect' : '';
-    const aboutButton = (sT ? 'text-gray-200 bg-black border-black hover:bg-orange-700 hover:border-orange-600' : 
-    'text-gray-700 border-white bg-white hover:bg-indigo-700 hover:border-indigo-600') + `hover:text-white border-2 rounded-full px-4 transform transition duration-200 py-1 
-    font-mono text-lg font-bold`;
+const NavMenu: React.FC<INav> = ({ sT, styleToggle, aboutToggle, rN, rO }) => {
+    // const blurSelection = sE ? 'blur-effect' : '';
+    const aboutButton = (sT ? 'text-gray-200 bg-black border-black hover:bg-orange-700 hover:border-orange-600 hover:text-white' :
+        'text-gray-700 border-white bg-white hover:bg-indigo-700 hover:border-indigo-600 hover:text-white');
 
     return (
-        <div className={`m-2 p-2 flex flex-row justify-around ${blurSelection}`}>
+        <div className={`m-2 p-2 flex flex-row justify-around`}>
 
-            <button onClick={aboutToggle} className={`${aboutButton}`}>About</button>
+            <button onClick={() => aboutToggle(true)} className={`${aboutButton} border-2 rounded-full px-4 transform transition duration-200 py-1 
+                font-mono text-lg font-bold`}>About</button>
 
-{rN.map((e: string, i: number) => <Nav className={`${aboutButton} `} to={rO[i]}>{e}</Nav>)}
+            {rN.map((e: string, i: number) => <Nav key={rO[i]} className={`${aboutButton} border-2 rounded-full px-4 transform transition duration-200 py-1 
+                font-mono text-lg font-bold`} to={rO[i]}>{e}</Nav>)}
 
-        <label className="label">
-            <div className="toggle">
-                <input className="toggle-state" type="checkbox" checked={!sT} onChange={styleToggle} />
-                <div className="toggle-inner">
-                    <div className="indicator">
+            <label className="label">
+                <div className="toggle">
+                    <input className="toggle-state" type="checkbox" checked={!sT} onChange={styleToggle} />
+                    <div className="toggle-inner">
+                        <div className="indicator">
+                        </div>
+                    </div>
+                    <div className="active-bg">
                     </div>
                 </div>
-                <div className="active-bg">
-                </div>
-            </div>
-        </label>
+            </label>
         </div >
     )
 }
@@ -46,8 +45,6 @@ const mapStateToProps = (state: TmainState) => {
     const t = state;
     return {
         sT: t.styleToggle,
-        aB: t.aboutState,
-        sE: t.selectedArt !== -1,
         rO: t.routes,
         rN: t.routeName,
     }
@@ -56,7 +53,7 @@ const mapStateToProps = (state: TmainState) => {
 const mapDispatchToProps = (dispatch: Dispatch<TACTIONS>) => {
     return {
         styleToggle: () => dispatch({ type: ACTIONS.nightToggle }),
-        aboutToggle: () => dispatch({ type: ACTIONS.toggleAbout })
+        aboutToggle: (e: boolean) => dispatch({ type: ACTIONS.toggleAbout, payload: e })
     }
 }
 

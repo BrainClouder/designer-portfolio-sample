@@ -1,89 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { ACTIONS } from '../store/actions/main';
-import { Parallax } from 'react-scroll-parallax';
 
 interface IHome {
     sT: boolean;
-    wO: string[];
+    wO: [string, string[]][];
     sE: number;
     select: (e: number) => void;
-    clear: () => void;
 }
 
-const Home: React.FC<IHome> = ({ sT, wO, sE, select, clear }) => {
-    const bgTog = (sT ? 'bg-gray-900 text-gray-300' : 'bg-gray-400 text-gray-700');
-    const visibilityToggle = (sE !== -1 ? 'visible modal-animate' : 'invisible');
-    const selProd = wO[sE];
-    const randomMode = Math.random() > 0.5;
-    const isSelected = sE !== -1;
-    const workName = (isSelected ? `"${[...selProd[1][0].split('"')][1]}"` : '');
-    const authorName = (isSelected ? [...[...selProd[1][0].split('by')][1].split('is licensed')][0] : '');
-    const license = (isSelected ? [...selProd[1][0].split('under ')][1] : '');
-    const linkStyle = `${sT ? 'text-orange-500 hover:text-orange-700' : 'text-indigo-500 hover:text-indigo-300'} font-bold`;
-    const blurSelected = isSelected ? 'blur-effect' : '';
-    return (<>
-        <div className={`absolute`} style={{ transform: 'translateZ(0px)' }}>
-            <div className={`flex flex-wrap justify-center ${blurSelected}`}>
-                {wO.map((e: any, i: number) => {
-                    const onSelect = (sE === i ? `border-2 border-gray-800 scale-100 shadow ${bgTog}` : 'hover:scale-100');
-                    const parallParamTwo = [-(i * 2 + 55), (i * 2 + 15)];
-                    return (
-                        <Parallax y={parallParamTwo} disabled={i % 2 !== 0}>
-                            <div key={e[0]}
-                                className={`w-mymd transform ${i % 2 !== 0 ? '' : 'scale-75'} m-8 transition duration-500 rounded-lg md:p-2 cursor-pointer ${onSelect}`} >
-                                <img className="shadow rounded-full" src={e[0]} onClick={() => {
-                                    window.scrollTo(0, 0);
-                                    select(i);
-                                }} />
-                            </div>
-                        </Parallax>
-                        )
-                })}
-            </div>
-        </div>
-        <div onClick={clear} className={`fixed top-0 left-0 h-screen w-screen ${visibilityToggle}`}>
+const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
+    const [loading, setLoad] = useState(false);
 
-        </div>
-        <div className={`${visibilityToggle} absolute top-0 left-0`}>
-            <div className={`relative w-screen`}>
-                <div className={`relative w-screen flex flex-row justify-center item-baseline`}>
-                    <div className={'w-1/4'} onClick={clear}></div>
-                    <div className={`p-4`}>
-                        <div>
-                            <div className={`relative p-4 ${sT ? 'bg-gray-900' : 'bg-gray-200'} rounded-lg md:w-mydisplay w-mylg flex flex-col justify-center`}>
-                                <img className={`w-full border-2 ${sT ? 'border-gray-800' : 'border-gray-200'} shadow-inner cursor-pointer rounded-t-lg`} src={isSelected ? selProd[0] : ''} onClick={clear} />
-                                <p className={`${sT ? 'bg-gray-900' : 'bg-gray-200'} p-1 text-xs`}>
-                                    <a href={isSelected ? selProd[1][1] : ''} className={linkStyle}>
-                                        {workName}
-                                    </a> by <a href={isSelected ? selProd[1][2] : ''} className={linkStyle}>
-                                        {authorName}
-                                    </a> is licensed under <a href={isSelected ? selProd[1][3] : ''} className={linkStyle}>
-                                        {license}
-                                    </a>
-                                </p>
-                                <div className={`${sT ? '' : ''} transform hover:scale-110 text-xs p-2 transition duration-200 rounded-b-lg`}>
-                                    <p className={`px-4 py-1 bg-gray-800 w-auto inline-block mx-auto rounded-t-lg font-bold text-3xl ${linkStyle}`}>
-                                        Work Title Here</p>
-                                    <div className={`${sT ? 'bg-gray-800' : 'bg-white'} rounded-lg`}>
-                                        <p className={`p-1`}>
-                                            I won't do lorem ipsum in this one. Instead, I'll type anything that is coming to my head right now just to fill up
+    useEffect(() => {
+        if (!loading) {
+            select(-1);
+            setLoad(true);
+        }
+    })
+    const selProd = wO[sE];
+    const isSelected = sE !== -1;
+    const linkStyle = `${sT ? 'text-orange-500 hover:text-orange-700' : 'text-indigo-500 hover:text-indigo-300'} font-bold`;
+    return (<>
+        <div className={`absolute left-0 w-screen`} >
+            <div className={`relative flex flex-wrap `} style={{ transform: 'rotate(0deg)' }}>
+                {wO.map((e: any, i: number) => {
+                    const active = sE === i;
+                    const workName = `"${[...e[1][0].split('"')][1]}"`;
+                    const authorName = [...[...e[1][0].split('by')][1].split('is licensed')][0];
+                    const license = [...e[1][0].split('under ')][1];
+                    return (
+                        <div key={i + e[0]} onClick={() => select(i)} className={`w-screen ${active ? 'expanded-gallery' : 'base-gallery'} 
+                            bg-center bg-cover bg-fixed relative`} style={{
+                                backgroundImage: `url(${e[0]})`, transition: "500ms",
+                                height: `${active ? 'auto' : ''}`
+                            }}>
+                            <div className={`absolute top-0 left-0 h-full w-full ${sT ? 'bg-white' : 'bg-black'} opacity-50`}></div>
+                            <div className={`text-gray-900 flex flex-col justify-center`}
+                                style={{ backgroundColor: `${active ? '' : '#000'}` }}>
+                                <span className={active ? 'opacity-0' : 'opacity-100'}>+</span>
+                                <div className={`${sT ? 'bg-gray-900 text-gray-200' : 'bg-gray-200'} modal-home-view mx-auto`}
+                                    style={{
+                                        transition: '500ms', opacity: `${active ? '0.96' : '0'}`,
+                                        transform: `scale(${active ? '1' : '0.1'})`
+                                    }}>
+                                    <div className={`flex flex-col sm:flex-col md:flex-row `}>
+                                        <img alt="img work" src={e[0]} className={`rounded-lg mx-auto border-8 my-4 ${sT ? 'border-gray-800' : 'border-gray-400'}`} 
+                                            width={250} height={250} />
+                                        <div className="px-2 py-1 w-full flex flex-col justify-center max-w-sm sm:max-w-sm md:max-w-lg">
+                                            <h2 className="text-2xl">{workName}</h2>
+                                            <p>I won't do lorem ipsum in this one. Instead, I'll type anything that is coming to my head right now just to fill up
                                             this text area so I can see if it fits right and feels right, so it can be used to input some text about some artwork
-                                        Inside here will be a <a className={`${linkStyle} cursor-pointer`} href="#">link</a> that will lead you to the top of the page, other <a className={`${linkStyle} cursor-pointer`} href={""}>link</a> that
-                                        would refresh the page and a <a className={`${linkStyle} cursor-pointer`} href={""}>link</a> that may take you out of here.
-                                        </p>
-                                        <p className={`p-1`}>
-                                            Some more info here
-                                        </p>
+                                        Inside here will be a <span className={`${linkStyle} cursor-pointer`} onClick={() => window.scrollTo(0,0)}>
+                                                    clicker</span> that will lead you to the top of the page.
+                                            </p>
+                                            <div className="text-xs p-2">
+                                                <a href={isSelected ? selProd[1][1] : ''} className={linkStyle}>
+                                                    {workName}
+                                                </a>
+                                                <a href={isSelected ? selProd[1][2] : ''} className={linkStyle}>
+                                                    {authorName}
+                                                </a> is licensed under <a href={isSelected ? selProd[1][3] : ''} className={linkStyle}>
+                                                    {license}
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className={'w-1/4'} onClick={clear}></div>
-                </div>
+                    )
+                })}
             </div>
-        </div>
+        </div>    
     </>
     )
 }
@@ -98,7 +88,6 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         select: (e: number) => dispatch({ type: ACTIONS.selectArt, payload: e }),
-        clear: () => dispatch({ type: ACTIONS.clearView }),
     }
 }
 

@@ -8,22 +8,23 @@ import { TmainState } from './types';
 import FooterCred from './_components/FooterCred';
 import AboutModal from './_components/AboutModal';
 import NavMenu from './_components/NavMenu';
-import DisplayMode from './_components/DisplayMode';
-import Slide from './_components/Slide';
+import Explore from './_components/Explore';
+
 
 interface IApp {
+  location: {pathname: string};
   sT: boolean;
   rO: string[];
   aB: boolean;
   rN: string[];
 }
-const App: React.FC<IApp> = ({ aB, sT, rO, rN }) => {
-  const compMap: JSX.Element[] = [<Home />, <DisplayMode />, <Slide />];
+const App: React.FC<IApp> = ({ aB, sT, rO, rN, location: {pathname} }) => {
+  const compMap: JSX.Element[] = [<Home />, <Explore />];
   const blurAbout: string = aB ? 'blur-effect overflow-hidden' : '';
   return (<>
     <div className={`w-max-screen subpixel-antialiased text-center p-4 select-none ${blurAbout}`}>
       <div className={`w-screen`}>
-        <img className={`mx-auto`} src={sT ? darkLogo : lightLogo} />
+        <img className={`mx-auto`} src={sT ? darkLogo : lightLogo} alt="logo praceholder" />
       </div>
       <NavMenu />
       <div>
@@ -45,6 +46,7 @@ const App: React.FC<IApp> = ({ aB, sT, rO, rN }) => {
     <div className={`${sT ? 'bg-dark' : 'bg-light'}`}></div>
     <AboutModal />
     <FooterCred />
+
   </>
   );
 }
