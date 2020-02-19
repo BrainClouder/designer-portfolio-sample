@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { ACTIONS } from '../store/actions/main';
 
 interface IHome {
+    wSize: number;
     sT: boolean;
     wO: [string, string[]][];
     sE: number;
     select: (e: number) => void;
 }
 
-const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
+const Home: React.FC<IHome> = ({ sT, wO, sE, select, wSize }) => {
     const [loading, setLoad] = useState(false);
+    if (!loading) {
+        select(-1);
+        setLoad(true);
+    }
 
-    useEffect(() => {
-        if (!loading) {
-            select(-1);
-            setLoad(true);
-        }
-    })
     const selProd = wO[sE];
     const isSelected = sE !== -1;
     const linkStyle = `${sT ? 'text-orange-500 hover:text-orange-700' : 'text-indigo-500 hover:text-indigo-300'} font-bold`;
@@ -30,7 +29,7 @@ const Home: React.FC<IHome> = ({ sT, wO, sE, select }) => {
                     const authorName = [...[...e[1][0].split('by')][1].split('is licensed')][0];
                     const license = [...e[1][0].split('under ')][1];
                     return (
-                        <div key={i + e[0]} onClick={() => select(i)} className={`w-screen ${active ? 'expanded-gallery' : 'base-gallery'} 
+                        <div key={i + e[0]} onClick={() => select(i)} className={`w-screen ${wSize < 500 ? 'sm-gal' : 'md-gal'} ${active ? 'expanded-gallery' : 'base-gallery'} 
                             bg-center bg-cover bg-fixed relative`} style={{
                                 backgroundImage: `url(${e[0]})`, transition: "500ms",
                                 height: `${active ? 'auto' : ''}`

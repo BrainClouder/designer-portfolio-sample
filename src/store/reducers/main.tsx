@@ -67,6 +67,7 @@ const initialState: TmainState = {
     selectedArt: -1,
     styleToggle: true,
     aboutState: false,
+    loaded: false,
 };
 
 const main = (state: TmainState = initialState, action: AnyAction) => {
@@ -75,6 +76,11 @@ const main = (state: TmainState = initialState, action: AnyAction) => {
             return {
                 ...state,
                 selectedArt: action.payload
+            }
+        case ACTIONS.setLoad:
+            return {
+                ...state,
+                loaded: action.payload
             }
         case ACTIONS.clearView:
             return {

@@ -32,7 +32,6 @@
   border-radius: 10px; }
 
 .base-gallery {
-  height: 20vh;
   transition: 500ms;
   cursor: pointer; }
   .base-gallery > div {
@@ -45,13 +44,20 @@
     bottom: 50%;
     width: 20%;
     left: 40%; }
-  .base-gallery:hover {
-    height: 30vh; }
-    .base-gallery:hover > div, .base-gallery:hover p {
-      opacity: 0.2; }
+  .base-gallery:hover > div, .base-gallery:hover p {
+    opacity: 0.2; }
   .base-gallery + .expanded-gallery {
-    height: 500px;
     transition: 500ms; }
+
+.sm-gal {
+  height: 350px; }
+  .sm-gal:hover {
+    height: 400px; }
+
+.md-gal {
+  height: 35vh; }
+  .md-gal:hover {
+    height: 45vh; }
 
 .show-select {
   opacity: 1; }
