@@ -68,6 +68,7 @@ const initialState: TmainState = {
     styleToggle: true,
     aboutState: false,
     loaded: false,
+    starSeed: [[0,0,0]],
 };
 
 const main = (state: TmainState = initialState, action: AnyAction) => {
@@ -76,6 +77,12 @@ const main = (state: TmainState = initialState, action: AnyAction) => {
             return {
                 ...state,
                 selectedArt: action.payload
+            }
+        
+        case ACTIONS.setStar: 
+            return {
+                ...state,
+                starSeed: action.payload,
             }
         case ACTIONS.setLoad:
             return {

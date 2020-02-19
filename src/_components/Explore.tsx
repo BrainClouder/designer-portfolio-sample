@@ -9,15 +9,16 @@ interface ISlider {
     sT: boolean;
     sE: number;
     lO: boolean;
+    starSeed: number[][];
     select: (e: number) => void;
     doLoad: (e: boolean) => void;
+    starLoad: (e: number[][]) => void;
 }
 
-const Slider: React.FC<ISlider> = ({ sT, wO, sE, select, lO, doLoad }) => {
+const Slider: React.FC<ISlider> = ({ sT, wO, sE, select, lO, doLoad, starLoad, starSeed }) => {
     const [posY, setScroll] = useState(-1);
     const [feedY] = useState(() => wO.map((e: any) => Math.random() * 50));
     const [feedX] = useState(() => wO.map((e: any) => Math.floor(Math.random() * 80)));
-    const [starS, setStar] = useState([[0, 0, 0]]);
     const [mPos, setPos] = useState([0,0]);
 
     const scrollPosHandler = (event: {clientX: number, clientY: number} | any) => {
@@ -32,15 +33,16 @@ const Slider: React.FC<ISlider> = ({ sT, wO, sE, select, lO, doLoad }) => {
     }
 
     const loadingSetup = () => {
+        window.scrollTo(0, 0);
+        select(-1);
+        if (starSeed.length <= 1) {
             const star = [];
-            window.scrollTo(0, 0);
             for (let i = 0; i < 200; i++) {
                 star.push([Math.random(), Math.random(), Math.random()]);
             }
-            doLoad(true);
-            setStar(star);
-            select(-1);
-
+            starLoad(star);
+        }
+        doLoad(true);
     }
     useEffect(() => {
         if (!lO) {
@@ -69,7 +71,7 @@ const Slider: React.FC<ISlider> = ({ sT, wO, sE, select, lO, doLoad }) => {
     return (<>
         <div className="relative">
             <div className={`fixed left-0 top-0 w-screen h-screen`} style={{ zIndex: -1 }}>
-                {starS.map((e: number[], i: number) => {
+                {starSeed.map((e: number[], i: number) => {
                     const xBody = e[0] * divWidth;
                     const yBody = e[1] * divHeight;
                     const resulter = (yBody + xBody - mPos[0] - mPos[1]);
@@ -151,6 +153,7 @@ const mapStateToProps = (state: TmainState) => {
         wO: t.works,
         sT: t.styleToggle,
         sE: t.selectedArt,
+        starSeed: t.starSeed,
         lO: t.loaded,
     }
 }
@@ -158,7 +161,8 @@ const mapStateToProps = (state: TmainState) => {
 const mapDispatchToProps = (dispatch: Dispatch<TACTIONS>) => {
     return {
         select: (e: number) => dispatch({ type: ACTIONS.selectArt, payload: e }),
-        doLoad: (e: boolean) => dispatch({ type: ACTIONS.setLoad, payload: e})
+        doLoad: (e: boolean) => dispatch({ type: ACTIONS.setLoad, payload: e}),
+        starLoad: (e: number[][]) => dispatch({type: ACTIONS.setStar, payload: e})
     }
 }
 
